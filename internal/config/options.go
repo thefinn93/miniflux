@@ -68,6 +68,7 @@ const (
 	defaultOAuth2ClientSecret                 = ""
 	defaultOAuth2RedirectURL                  = ""
 	defaultOAuth2OidcDiscoveryEndpoint        = ""
+	defaultOauth2OidcProviderName             = "OpenID Connect"
 	defaultOAuth2Provider                     = ""
 	defaultPocketConsumerKey                  = ""
 	defaultHTTPClientTimeout                  = 20
@@ -151,6 +152,7 @@ type Options struct {
 	oauth2ClientSecret                 string
 	oauth2RedirectURL                  string
 	oidcDiscoveryEndpoint              string
+	oidcProviderName                   string
 	oauth2Provider                     string
 	pocketConsumerKey                  string
 	httpClientTimeout                  int
@@ -227,6 +229,7 @@ func NewOptions() *Options {
 		oauth2ClientSecret:                 defaultOAuth2ClientSecret,
 		oauth2RedirectURL:                  defaultOAuth2RedirectURL,
 		oidcDiscoveryEndpoint:              defaultOAuth2OidcDiscoveryEndpoint,
+		oidcProviderName:                   defaultOauth2OidcProviderName,
 		oauth2Provider:                     defaultOAuth2Provider,
 		pocketConsumerKey:                  defaultPocketConsumerKey,
 		httpClientTimeout:                  defaultHTTPClientTimeout,
@@ -446,6 +449,11 @@ func (o *Options) OAuth2RedirectURL() string {
 // OIDCDiscoveryEndpoint returns the OAuth2 OIDC discovery endpoint.
 func (o *Options) OIDCDiscoveryEndpoint() string {
 	return o.oidcDiscoveryEndpoint
+}
+
+// OIDCProviderName returns the OAuth2 OIDC provider's display name
+func (o *Options) OIDCProviderName() string {
+	return o.oidcProviderName
 }
 
 // OAuth2Provider returns the name of the OAuth2 provider configured.
@@ -682,6 +690,7 @@ func (o *Options) SortedOptions(redactSecret bool) []*Option {
 		"OAUTH2_CLIENT_ID":                       o.oauth2ClientID,
 		"OAUTH2_CLIENT_SECRET":                   redactSecretValue(o.oauth2ClientSecret, redactSecret),
 		"OAUTH2_OIDC_DISCOVERY_ENDPOINT":         o.oidcDiscoveryEndpoint,
+		"OAUTH2_OIDC_PROVIDER_NAME":              o.oidcProviderName,
 		"OAUTH2_PROVIDER":                        o.oauth2Provider,
 		"OAUTH2_REDIRECT_URL":                    o.oauth2RedirectURL,
 		"OAUTH2_USER_CREATION":                   o.oauth2UserCreationAllowed,
